@@ -1,0 +1,167 @@
+import java.util.*;
+class Book 
+{
+    String bk,an;
+    int bid;boolean f;
+    void getBooks(Scanner sc,int bid)
+    {
+        System.out.println("Enter Book Name:");
+        this.bk=sc.next();
+        System.out.println("Enter Author Name:");
+        this.an=sc.next();
+        this.bid=bid;
+        System.out.println("Book ID:"+bid);
+        this.f=true;
+    }
+    void viewBooks()
+    {
+        if(this.f)
+        System.out.println(this.bk+"\t"+this.an+"\t"+this.bid);
+    }
+    void lendBooks(String tst)
+    {
+        if(this.f&&tst.equals(this.bk))
+        {
+            this.f=false;
+            System.out.println("Book issued successfully");
+        }
+        else
+        System.out.println("Book not Available...!");
+    }
+    void ReturnBook(String tst)
+    {
+       if(this.f==false&&tst.equals(this.bk))
+       {
+           this.f=true;
+           System.out.println("Book issued Successfuly");
+       }
+       else
+       System.out.println("Invalid Book ID or Name...!");
+    }
+}
+class Student 
+    {
+        String sn,pw;
+        int reg;
+        void getStudent(Scanner sc,int sid)
+        {
+            System.out.println("Enter Student Name");
+            this.sn=sc.next();
+            System.out.println("Enter student password");
+             this.pw=sc.next();
+             this.reg=sid;
+        }
+        void viewStudent()
+            {
+                System.out.println(this.sn+"\t"+this.reg);
+            }
+    }
+class Main 
+{
+	public static void main(String arg[])
+	{
+	    Book bk[]=new Book[20];
+	    Student st[]=new Student[20];
+	    int bkc=0,stc=0;
+		Scanner sc=new Scanner(System.in);
+		System.out.println("!..Welcome To Library..!");
+		do
+		{
+			System.out.println("1.Admin\n2.Students\n3.Exit\n");
+			int n=sc.nextInt();
+			if(n==3)
+			{
+				System.out.print("Thanks..");
+				break;
+			}
+			if(n==1)
+			{
+			    while(true)
+			    {
+    				System.out.println("1.Add Student\n2.View Student\n3.Add Book\n4.View Books\n5.Exit\n");
+    				int opt=sc.nextInt();
+                    if(opt==5)
+                    break;
+                    else if(opt==3)
+                    {
+                        bk[bkc]=new Book();
+                        bk[bkc].getBooks(sc,1001+bkc);
+                        bkc++;
+                    }
+                    else if(opt==4)
+                    {
+                        for(int i=0;i<bkc;i++)
+                        bk[i].viewBooks();
+                    }
+                    else if(opt==1)
+                    {
+                        st[stc]=new Student();
+                        st[stc].getStudent(sc,2001+stc);
+                        stc++;
+                    }
+                    else if(opt==2)
+                    {
+                        for(int i=0;i<stc;i++)
+                        st[i].viewStudent();
+                    }
+                    else 
+                    System.out.println("Invalid Option..!\n");
+			    }
+			}
+			if(n==2)
+			{
+			    System.out.println("Enter student ID");
+			    int stid=sc.nextInt();
+			    System.out.print("Enter student passwod");
+			    String spw=sc.next();
+			    try 
+			    {
+    			    if(st[stid-2001].pw.equals(spw))
+    			    {
+        			    while(true)
+        			    {
+        			        System.out.println("1. View Books\n2. Lend Books\n3. Return Books\n4. Exit\n");
+        			        int opt=sc.nextInt();
+        			        if(opt==1)
+        			        {
+        			            for(int i=0;i<bkc;i++)
+                                bk[i].viewBooks();
+        			        }
+        			        else if(opt==2)
+        			        {
+        			            System.out.println("Enter Book Name:");
+        			            String tbn=sc.next();
+        			            System.out.println("Enter Book ID:");
+        			            int tid=sc.nextInt();
+        			            bk[tid-1001].lendBooks(tbn);
+        			        }
+        			        else if(opt==3)
+        			        {
+        			            System.out.println("Enter Book Name:");
+        			            String tbn=sc.next();
+        			            System.out.println("Enter Book ID:");
+        			            int tid=sc.nextInt();
+        			            bk[tid-1001].ReturnBook(tbn);
+        			        }
+        			        else if(n==4)
+        			        break;
+        			        else
+        			        System.out.println("Invalid Option..!");
+        			    }
+    			    }
+    			    else
+    			    {
+    			        System.out.print("Invalid Student ID or Password..");
+    			    }
+			    }
+		catch(Exception e)
+		        {
+		             System.out.println("Invalid Student ID or password..");
+		        }
+	        }
+        }while(true);
+    }
+}
+
+			    
+		
